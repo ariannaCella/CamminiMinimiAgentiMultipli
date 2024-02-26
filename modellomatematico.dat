@@ -1,0 +1,38 @@
+### Definizione degli insiemi ###
+set NODI := 1 2 3 4;
+set ARCHI :=
+(1, 2)
+(1, 1)
+(2, 2)
+(3, 3)
+(4, 4)
+(2, 1)
+(2, 3)
+(3, 2)
+(2, 4)
+(4, 2);
+
+set AGENTI := a1 a2;
+
+### Parametri ###
+param: oi   di :=
+      a1    1     3
+      a2    3     1;
+
+param Tmax := 10;  ### Tempo massimo entro cui tutti gli agenti devono raggiungere le loro destinazioni
+
+
+solve;
+
+printf "Percorso degli agenti:\n";
+for {k in AGENTI} {
+    printf "Agente %s:\n", k;
+    for {(i, j) in ARCHI} {
+        for (t in 1..Tmax){
+            if (x[i, j, k,t] > 0) {
+              printf "    Nodo %s -> Nodo %s\n", i, j;
+            }
+        } 
+    }
+    printf "\n";
+}
