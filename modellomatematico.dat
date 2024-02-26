@@ -23,15 +23,13 @@ param Tmax := 10;  ### Tempo massimo entro cui tutti gli agenti devono raggiunge
 
 
 solve;
-
 printf "Percorso degli agenti:\n";
 for {k in AGENTI} {
     printf "Agente %s:\n", k;
     for {(i, j) in ARCHI} {
-        for (t in 1..Tmax){
-            if (x[i, j, k,t] > 0) {
-              printf "    Nodo %s -> Nodo %s\n", i, j;
-            }
+        for {t in 1..Tmax} {
+              printf "Tempo %s:", t;
+              printf "    Nodo %s -> Nodo %s presenza=%s\n", i, j, x[i, j, k, t];
         } 
     }
     printf "\n";
