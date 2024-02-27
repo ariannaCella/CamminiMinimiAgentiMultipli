@@ -1,14 +1,14 @@
 ### Definizione degli insiemi ###
 set NODI := 1 2 3 4;
 set ARCHI :=
-(1, 2)
 (1, 1)
-(2, 2)
-(3, 3)
-(4, 4)
+(1, 2)
 (2, 1)
+(2, 2)
 (2, 3)
 (3, 2)
+(3, 3)
+(4, 4)
 (2, 4)
 (4, 2);
 
@@ -26,10 +26,12 @@ solve;
 printf "Percorso degli agenti:\n";
 for {k in AGENTI} {
     printf "Agente %s:\n", k;
-    for {(i, j) in ARCHI} {
-        for {t in 1..Tmax} {
+    for {t in 1..Tmax} {
+        for {(i, j) in ARCHI}{
+              if (x[i,j,k,t]=1) then {  
               printf "Tempo %s:", t;
-              printf "    Nodo %s -> Nodo %s presenza=%s\n", i, j, x[i, j, k, t];
+              printf "    Nodo %s -> Nodo %s \n", i, j;
+              }
         } 
     }
     printf "\n";
