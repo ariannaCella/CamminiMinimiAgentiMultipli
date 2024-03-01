@@ -1,0 +1,14 @@
+# Dichiarazione delle variabili ausiliarie L
+var L{i in NODI, j in NODI, k in AGENTI, h in AGENTI, t in 1..Tmax} binary;
+
+# Vincolo di linearizzazione
+subject to LinearizationConstraint {i in NODI, j in NODI, k in AGENTI, h in AGENTI, t in 1..Tmax}:
+    x[i,k,t] + x[j,h,t] + x[j,k,t+1] + x[i,h,t+1] <= 3 + 3*L[i,j,k,h,t];
+
+# Almeno una delle variabili x deve essere 0
+subject to AtLeastOneZero {i in NODI, j in NODI, k in AGENTI, h in AGENTI, t in 1..Tmax}:
+    L[i,j,k,h,t] >= x[i,k,t] + x[j,h,t] + x[j,k,t+1] + x[i,h,t+1] - 3;
+
+# Restrizioni aggiuntive
+# ...
+# ...
