@@ -1,0 +1,38 @@
+### Definizione degli insiemi ###
+set INTER := 1 2 3 4;
+set ROADS :=
+(1, 1)
+(1, 2)
+(2, 1)
+(2, 2)
+(2, 3)
+(3, 2)
+(3, 3)
+(4, 4)
+(2, 4)
+(4, 2);
+
+set AGENTI := a1 a2;
+
+### Parametri ###
+param: entr   exit :=
+      a1    1     3
+      a2    3     1;
+
+param Tmax := 10;  ### Tempo massimo entro cui tutti gli agenti devono raggiungere le loro destinazioni
+
+solve;
+printf "Percorso degli agenti:\n";
+for {k in AGENTI} {
+    printf "Agente %s:\n", k;
+    for {t in 1..Tmax} {
+        for {(i, j) in ROADS}{
+              if (Use[i,j, k, t]=1) then {  
+              printf "Tempo %s:", t;
+              printf "    Nodo %s -> Nodo %s \n", i,j;
+              }
+        } 
+    }
+    printf "\n";
+}
+
