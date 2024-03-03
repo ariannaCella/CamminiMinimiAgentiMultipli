@@ -15,18 +15,16 @@ subject to Start {k in AGENTI}:
 subject to End {k in AGENTI}: 
    sum {(j, exit[k]) in ROADS} Use[j,exit[k] , k, Tmax] = 1; 
 
+subject to NonSovrapposizioneNodi {i in INTER, t in 1..Tmax}:
+    sum {j in INTER, k in AGENTI: (i,j) in ROADS} Use[i,j,k,t] <= 1;
 
 subject to NonSovrapposizioneArchi {k in AGENTI, h in AGENTI, t in 1..Tmax, (i,j) in ROADS : h != k && i<=j}:
     Use[i,j,k,t] + Use[j,i,h,t] <= 1;
 
-subject to NonSovrapposizioneNodi {i in INTER,t in 1..Tmax, k in AGENTI, h in AGENTI : h!=k }:
-   sum {(m,i) in ROADS: i<=m} Use[m,i,h,t] - sum {(i,j) in ROADS:i<=j} Use[i,j,k,t]  <= 1;
-
 subject to Continuity {k in AGENTI, t in 2..Tmax, i in INTER}:
     sum {(i, j) in ROADS} Use[i, j, k, t] = sum {(j, i) in ROADS} Use[j, i, k, t-1];
 
-subject to Unique_Node_Occupancy {i in INTER, t in 1..Tmax}:
-    sum {j in INTER, k in AGENTI: (i,j) in ROADS} Use[i,j,k,t] <= 1;
+
 
 
 
